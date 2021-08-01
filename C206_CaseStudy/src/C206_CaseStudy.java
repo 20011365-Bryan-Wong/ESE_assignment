@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class C206_CaseStudy {
 	private static final int OPTION_QUIT = 4;
@@ -20,6 +21,7 @@ public class C206_CaseStudy {
 	private static final int DELETE_STUDENTS = 4;
 
 	public static void main(String[] args) {
+		ArrayList<TimeTable> timetableList = new ArrayList<TimeTable>();
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
@@ -40,6 +42,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == VIEW_TIMETABLE) {
 					// YenTong
+					C206_CaseStudy.viewTimeTable(timetableList);
 
 				} else if (tuitionType == VIEW_STUDENTS) {
 					// Keng Siong
@@ -59,6 +62,8 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == ADD_TIMETABLE) {
 					// YenTong
+					TimeTable addTime = inputTimeTable();
+					C206_CaseStudy.addTimeTable(timetableList, addTime);
 
 				} else if (tuitionType == ADD_STUDENTS) {
 					// Keng Siong
@@ -115,4 +120,43 @@ public class C206_CaseStudy {
 		System.out.println("3. Tuition Timetable");
 		System.out.println("4. Students");
 	}
+
+	// ================================= Option 1 View (CRUD - Read)
+	// =================================
+	public static String retrieveTimetable(ArrayList<TimeTable> timetableList) {
+		String output = "";
+		for (int i = 0; i < timetableList.size(); i++) {
+			output += String.format("%-84s \n", timetableList.get(i).toString());
+		}
+		return output;
+	}
+
+	public static void viewTimeTable(ArrayList<TimeTable> timetableList) {
+		C206_CaseStudy.setHeader("TIMETABLE LIST");
+		String output = String.format("%-10s %-10s %-10s %-10s\n", "ID", "PRICE", "START DATE", "END DATE");
+		output += retrieveTimetable(timetableList);
+		System.out.println(output);
+	}
+
+	// ================================= Option 2 Add (CRUD -
+	// Create)=================================
+	public static TimeTable inputTimeTable() {
+		int id = Helper.readInt("Enter id > ");
+		double price = Helper.readDouble("Enter price > $");
+		String startDate = Helper.readString("Enter Start Date > ");
+		String endDate = Helper.readString("Enter End Date > ");
+		// To-do mode
+
+		TimeTable tt = new TimeTable(id, price, startDate, endDate);
+		return tt;
+	}
+
+	public static void addTimeTable(ArrayList<TimeTable> timetableList, TimeTable tt) {
+		timetableList.add(tt);
+		System.out.println("TimeTable Added!");
+	}
+	// ================================= Option 3 Delete (CRUD -
+	// Delete)=================================
+	
+	
 }
