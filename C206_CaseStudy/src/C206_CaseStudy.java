@@ -83,6 +83,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == DELETE_TIMETABLE) {
 					// YenTong
+					C206_CaseStudy.doDelete(timetableList);
 
 				} else if (tuitionType == DELETE_STUDENTS) {
 					// Keng Siong
@@ -121,8 +122,8 @@ public class C206_CaseStudy {
 		System.out.println("4. Students");
 	}
 
-	// ================================= Option 1 View (CRUD - Read)
-	// =================================
+	// ================================= Option 1 View (CRUD -
+	// Read)=================================
 	public static String retrieveTimetable(ArrayList<TimeTable> timetableList) {
 		String output = "";
 		for (int i = 0; i < timetableList.size(); i++) {
@@ -133,7 +134,8 @@ public class C206_CaseStudy {
 
 	public static void viewTimeTable(ArrayList<TimeTable> timetableList) {
 		C206_CaseStudy.setHeader("TIMETABLE LIST");
-		String output = String.format("%-10s %-10s %-10s %-10s\n", "ID", "PRICE", "START DATE", "END DATE");
+		String output = String.format("%-5s %-10s %-13s %-13s %-10s\n", "ID", "PRICE", "START DATE", "END DATE",
+				"MODE");
 		output += retrieveTimetable(timetableList);
 		System.out.println(output);
 	}
@@ -141,13 +143,13 @@ public class C206_CaseStudy {
 	// ================================= Option 2 Add (CRUD -
 	// Create)=================================
 	public static TimeTable inputTimeTable() {
-		int id = Helper.readInt("Enter id > ");
 		double price = Helper.readDouble("Enter price > $");
 		String startDate = Helper.readString("Enter Start Date > ");
 		String endDate = Helper.readString("Enter End Date > ");
-		// To-do mode
+		String mode = Helper.readString("Enter Mode > ");
 
-		TimeTable tt = new TimeTable(id, price, startDate, endDate);
+		Helper.line(80, "-");
+		TimeTable tt = new TimeTable(TimeTable.generateId(), price, startDate, endDate, mode.toUpperCase());
 		return tt;
 	}
 
@@ -155,8 +157,25 @@ public class C206_CaseStudy {
 		timetableList.add(tt);
 		System.out.println("TimeTable Added!");
 	}
+
 	// ================================= Option 3 Delete (CRUD -
 	// Delete)=================================
-	
-	
+
+	public static void doDelete(ArrayList<TimeTable> timetableList) {
+		C206_CaseStudy.viewTimeTable(timetableList);
+		int id = Helper.readInt("Enter id > ");
+		boolean isFound = false;
+
+		for (int i = 0; i < timetableList.size(); i++) {
+			if (timetableList.get(i).getId() == id) {
+				timetableList.remove(i);
+				isFound = true;
+			}
+		}
+		if (isFound == false) {
+			System.out.println("Invalid ID");
+		} else {
+			System.out.println("Timetable (ID " + id + ") successfully deleted!");
+		}
+	}
 }

@@ -4,19 +4,20 @@ public class TimeTable {
 	private double price;
 	private String startDate;
 	private String endDate;
-	// To-do mode
+	private String mode;
+	private static int latestId = 0;
 
-	public TimeTable(int id, double price, String startDate, String endDate) {
+	public TimeTable(int id, double price, String startDate, String endDate, String mode) {
 		this.id = id;
 		this.price = price;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.mode = mode;
 	}
 
 	public String toString() {
-
-		// Write your codes here
-		return String.format("%-10s %-10s %-10s %-10s", getId(), getPrice(), getStartDate(), getEndDate());
+		return String.format("%-5s $%-9.2f %-13s %-13s %-10s", getId(), getPrice(), getStartDate(), getEndDate(),
+				getMode());
 	}
 
 	public int getId() {
@@ -35,4 +36,11 @@ public class TimeTable {
 		return endDate;
 	}
 
+	public String getMode() {
+		return mode;
+	}
+
+	public static int generateId() {
+	   return ++latestId;
+	}
 }
