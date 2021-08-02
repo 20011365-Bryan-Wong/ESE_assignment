@@ -22,6 +22,7 @@ public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		ArrayList<TimeTable> timetableList = new ArrayList<TimeTable>();
+		timetableList.add(new TimeTable(TimeTable.generateId(), 4.2, "20/04/2021", "20/09/2021", "ONLINE"));
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
@@ -127,7 +128,7 @@ public class C206_CaseStudy {
 	public static String retrieveTimetable(ArrayList<TimeTable> timetableList) {
 		String output = "";
 		for (int i = 0; i < timetableList.size(); i++) {
-			output += String.format("%-84s \n", timetableList.get(i).toString());
+			output += String.format("%-10s", timetableList.get(i).toString());
 		}
 		return output;
 	}
@@ -161,17 +162,22 @@ public class C206_CaseStudy {
 	// ================================= Option 3 Delete (CRUD -
 	// Delete)=================================
 
-	public static void doDelete(ArrayList<TimeTable> timetableList) {
-		C206_CaseStudy.viewTimeTable(timetableList);
-		int id = Helper.readInt("Enter id > ");
+	public static boolean doFind(ArrayList<TimeTable> timetableList, int id) {
 		boolean isFound = false;
-
 		for (int i = 0; i < timetableList.size(); i++) {
 			if (timetableList.get(i).getId() == id) {
 				timetableList.remove(i);
 				isFound = true;
 			}
 		}
+		return isFound;
+	}
+
+	public static void doDelete(ArrayList<TimeTable> timetableList) {
+		C206_CaseStudy.viewTimeTable(timetableList);
+		int id = Helper.readInt("Enter id > ");
+		Boolean isFound = doFind(timetableList, id);
+
 		if (isFound == false) {
 			System.out.println("Invalid ID");
 		} else {
