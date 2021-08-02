@@ -128,7 +128,7 @@ public class C206_CaseStudy {
 	public static String retrieveTimetable(ArrayList<TimeTable> timetableList) {
 		String output = "";
 		for (int i = 0; i < timetableList.size(); i++) {
-			output += String.format("%-10s", timetableList.get(i).toString());
+			output += String.format("%s\n", timetableList.get(i).toString());
 		}
 		return output;
 	}

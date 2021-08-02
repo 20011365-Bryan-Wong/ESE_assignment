@@ -37,7 +37,7 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveTimetable(timetableList);
-		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s", 1, 4.2, "20/04/2021",
+		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s\n", 1, 4.2, "20/04/2021",
 				"20/09/2021", "ONLINE");
 
 		assertEquals("Test that viewTimeTable", testOutput,all);
