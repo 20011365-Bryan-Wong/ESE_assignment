@@ -23,6 +23,11 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		ArrayList<TimeTable> timetableList = new ArrayList<TimeTable>();
 		timetableList.add(new TimeTable(TimeTable.generateId(), 4.2, "20/04/2021", "20/09/2021", "ONLINE"));
+
+		ArrayList<Register> registerList = new ArrayList<Register>();
+		registerList.add(new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
+				"03/08/2021"));
+
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
@@ -37,6 +42,7 @@ public class C206_CaseStudy {
 
 				if (tuitionType == VIEW_REG) {
 					// Bryan
+					C206_CaseStudy.viewReg(registerList);
 
 				} else if (tuitionType == VIEW_TUITION) {
 					// Danish
@@ -57,6 +63,8 @@ public class C206_CaseStudy {
 
 				if (tuitionType == ADD_REG) {
 					// Bryan
+					Register addRegister = inputRegister();
+					C206_CaseStudy.addRegister(registerList, addRegister);
 
 				} else if (tuitionType == ADD_TUITION) {
 					// Danish
@@ -78,6 +86,7 @@ public class C206_CaseStudy {
 
 				if (tuitionType == DELETE_REG) {
 					// Bryan
+					C206_CaseStudy.doDeleteReg(registerList);
 
 				} else if (tuitionType == DELETE_TUITION) {
 					// Danish
@@ -141,6 +150,21 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	public static String retrieveRegister(ArrayList<Register> registerList) {
+		String output = "";
+		for (int i = 0; i < registerList.size(); i++) {
+			output += String.format("%-5s \n", registerList.get(i).toString());
+		}
+		return output;
+	}
+
+	public static void viewReg(ArrayList<Register> registerList) {
+		C206_CaseStudy.setHeader("REGISTRATION LIST");
+		String output = String.format("%-5s %-5s %-25s %-10s %-10s \n", "NO.", "ID", "EMAIL", "STATUS", "DATE");
+		output += retrieveRegister(registerList);
+		System.out.println(output);
+	}
+
 	// ================================= Option 2 Add (CRUD -
 	// Create)=================================
 	public static TimeTable inputTimeTable() {
@@ -157,6 +181,21 @@ public class C206_CaseStudy {
 	public static void addTimeTable(ArrayList<TimeTable> timetableList, TimeTable tt) {
 		timetableList.add(tt);
 		System.out.println("TimeTable Added!");
+	}
+
+	public static Register inputRegister() {
+		String email = Helper.readString("Enter email > ");
+		String status = "";
+		String date = Helper.readString("Enter Register Date > ");
+
+		Helper.line(80, "-");
+		Register r = new Register(Register.generateReg(), Register.generateId(), email, status, date);
+		return r;
+	}
+
+	public static void addRegister(ArrayList<Register> registerList, Register r) {
+		registerList.add(r);
+		System.out.println("Registered!");
 	}
 
 	// ================================= Option 3 Delete (CRUD -
@@ -182,6 +221,28 @@ public class C206_CaseStudy {
 			System.out.println("Invalid ID");
 		} else {
 			System.out.println("Timetable (ID " + id + ") successfully deleted!");
+		}
+	}
+
+	public static boolean doFindReg(ArrayList<Register> registerList, int reg) {
+		boolean isFound = false;
+		for (int i = 0; i < registerList.size(); i++) {
+			if (registerList.get(i).getRegNum() == reg) {
+				registerList.remove(i);
+			}
+		}
+		return isFound;
+	}
+
+	public static void doDeleteReg(ArrayList<Register> registerList) {
+		C206_CaseStudy.viewReg(registerList);
+		int reg = Helper.readInt("Enter Registration No > ");
+		Boolean isFound = doFindReg(registerList, reg);
+
+		if (isFound == false) {
+			System.out.println("Invalid Registration Number!");
+		} else {
+			System.out.println("Registration Number (ID" + reg + ") successfully deleted!");
 		}
 	}
 }
