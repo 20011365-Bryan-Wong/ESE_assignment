@@ -202,6 +202,60 @@ public class C206_CaseStudyTest {
 		isFound = C206_CaseStudy.doFindTuition(tuitionList, Tuition.generateCode());
 		assertFalse("Test if non-existing Tuition is found - false?", isFound);
 	}
+		}
+	//KengSiong
+	public void retrieveStud() {
+		// Test if list is not null but empty -boundary
+		assertNotNull("Test if there is valid Student arraylist to retrieve", studentList);
+
+		// Test if the list retrieved is empty - boundary
+		String all = C206_CaseStudy.retrieveStudent(studentList);
+		String testOutput = "";
+		assertEquals("Check that viewStudentlist", testOutput, all);
+
+		// Given an empty list, after adding 1 item, test if the size of the list is 1 -
+		// normal
+		C206_CaseStudy.addStudent(studentList, s);
+		assertEquals("Check that Student arraylist size is 1", 1, studentList.size());
+
+		// Test if the expected output string same as the list of timetable retrieved
+		all = C206_CaseStudy.retrieveStudent(studentList);
+		testOutput = String.format("\"%-5s %-5s %-25s %-10s %-10s %-10s %-20\"", "keng Siong", "M", 98765432, "20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021);
+
+		assertEquals("Test that viewStudent", testOutput, all);
+	}
+	//KengSiong
+	@Test
+	public void addStud() {
+		// Registration list is not null, so that can add a new item - boundary
+		assertNotNull("Test if there is valid Student arraylist to add to", studentList);
+
+		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
+		// The item just added is as same as the first item of the list
+		C206_CaseStudy.addStudent(studentList, s);
+		assertEquals("Test that StudentList arraylist size is 1", 1, studentList.size());
+		assertSame("Test that a Student is added", s, studentList.get(0));
+	}
+	//KengSiong
+	@Test
+	public void doDeleteStud() {
+		// Boundary
+		assertNotNull("Test if there is valid Student arraylist to add to", studentList);
+		C206_CaseStudy.addStudent(studentList, s);
+
+		// Error
+		Boolean isFound = C206_CaseStudy.doFindStud(studentList, Student.generateStudent());
+		assertFalse("Test if available Register is found -false?", isFound);
+
+		// Normal
+		C206_CaseStudy.addStudent(studentList, s);
+		isFound = C206_CaseStudy.doFindStud(studentList,s.getName());
+		assertTrue("Test if Student is found- true", isFound);
+
+		// Error
+		isFound = C206_CaseStudy.doFindStud(studentList, Student.generateStudent());
+		assertFalse("Test if non-existing Student is found - false?", isFound);
+	}
 
 //	@Test
 //	public void c206_test() {
