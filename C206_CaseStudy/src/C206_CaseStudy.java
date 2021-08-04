@@ -28,6 +28,9 @@ public class C206_CaseStudy {
 		registerList.add(new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
 				"03/08/2021"));
 
+		ArrayList<Tuition> tuitionList = new ArrayList<Tuition>();
+		tuitionList.add(new Tuition(Tuition.generateCode()-1, "001", "Biology 2", "biology", 2, "Biology level 1"));
+
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
@@ -46,6 +49,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == VIEW_TUITION) {
 					// Danish
+					C206_CaseStudy.viewTuition(tuitionList);
 
 				} else if (tuitionType == VIEW_TIMETABLE) {
 					// YenTong
@@ -68,6 +72,8 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == ADD_TUITION) {
 					// Danish
+					Tuition addTuition = inputTuition();
+					C206_CaseStudy.addTuition(tuitionList, addTuition);
 
 				} else if (tuitionType == ADD_TIMETABLE) {
 					// YenTong
@@ -90,6 +96,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == DELETE_TUITION) {
 					// Danish
+					C206_CaseStudy.doDeleteTuition(tuitionList);
 
 				} else if (tuitionType == DELETE_TIMETABLE) {
 					// YenTong
@@ -165,6 +172,24 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	// Danish
+	public static String retrieveTuition(ArrayList<Tuition> tuitionList) {
+		String output = "";
+		for (int i = 0; i < tuitionList.size(); i++) {
+			output += String.format("%-5s", tuitionList.get(i).toString());
+		}
+		return output;
+	}
+
+	// Danish
+	public static void viewTuition(ArrayList<Tuition> tuitionList) {
+		C206_CaseStudy.setHeader("TUITION LIST");
+		String output = String.format("%-15s %-15s %-15s %-15s %-15s %-10s\n", "TUITION CODE", "TITLE", "SUBJECT", "DESC",
+				"DURATION", "PRE REQUISITE");
+		output += retrieveTuition(tuitionList);
+		System.out.println(output);
+	}
+
 	// ================================= Option 2 Add (CRUD -
 	// Create)=================================
 	public static TimeTable inputTimeTable() {
@@ -196,6 +221,26 @@ public class C206_CaseStudy {
 	public static void addRegister(ArrayList<Register> registerList, Register r) {
 		registerList.add(r);
 		System.out.println("Registered!");
+	}
+
+//Danish
+	public static Tuition inputTuition() {
+		int tuitCode = Helper.readInt("Enter tuition code > ");
+		String title = Helper.readString("Enter tuition title > ");
+		String subject = Helper.readString("Enter subject > ");
+		String desc = Helper.readString("Enter desc > ");
+		int duration = Helper.readInt("Enter duration > ");
+		String prerequisite = Helper.readString("Enter Pre-requisite > ");
+
+		Helper.line(80, "-");
+		Tuition tn = new Tuition(tuitCode, title, subject, desc, duration, prerequisite);
+		return tn;
+	}
+
+//Danish
+	public static void addTuition(ArrayList<Tuition> tuitionList, Tuition tn) {
+		tuitionList.add(tn);
+		System.out.println("Tuition added");
 	}
 
 	// ================================= Option 3 Delete (CRUD -
@@ -244,5 +289,30 @@ public class C206_CaseStudy {
 		} else {
 			System.out.println("Registration Number (ID" + reg + ") successfully deleted!");
 		}
+	}
+
+//Danish
+	public static void doDeleteTuition(ArrayList<Tuition> tuitionList) {
+		C206_CaseStudy.viewTuition(tuitionList);
+		int tuitCode = Helper.readInt("Enter Tuition Code > ");
+		Boolean isFound = doFindTuition(tuitionList, tuitCode);
+
+		if (isFound == false) {
+			System.out.println("Invalid Tuition Code");
+		} else {
+			System.out.println("Tuition Code (ID" + tuitCode + ") successfully deleted!");
+		}
+	}
+
+//Danish
+	public static boolean doFindTuition(ArrayList<Tuition> tuitionList, int tuitCode) {
+		boolean isFound = false;
+		for (int i = 0; i < tuitionList.size(); i++) {
+			if (tuitionList.get(i).tuitCode() == tuitCode) {
+				tuitionList.remove(i);
+				isFound = true;
+			}
+		}
+		return isFound;
 	}
 }
