@@ -19,7 +19,7 @@ public class Student {
 		YearJoined = yearJoined;
 	}
 	public String toString() {
-		return String.format("%-5s %-5s %-25s %-10s %-10s %-10s %-20", getName(), getGender(),getMobile(), getEmail(), getDoB(), getCoR(), getYearJoined());
+		return String.format("%-15s %-10s %-15s %-20s %-15s %-15s %-10s", getName(), getGender(),getMobile(), getEmail(), getDoB(), getCoR(), getYearJoined());
 	}
 
 	public String getName() {

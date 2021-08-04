@@ -1,4 +1,4 @@
-
+// Danish
 public class Tuition {
 	private int tuitCode;
 	private String title;
@@ -18,7 +18,7 @@ public class Tuition {
 	}
 
 	public String toString() {
-		return String.format("%-25d %-15s %-15s %-16s %-22s %-10s", Tuition.generateCode()-1, title(), subject(), desc(), duration(),prerequisite());
+		return String.format("%-15d %-15s %-15s %-15s %-15s %-10s", Tuition.generateCode()-1, title(), subject(), desc(), duration(),prerequisite());
 
 	}
 

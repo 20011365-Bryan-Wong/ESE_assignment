@@ -20,7 +20,7 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		timetableList = new ArrayList<TimeTable>();
-		tt = new TimeTable(TimeTable.generateId(), 4.2, "20/04/2021", "20/09/2021", "ONLINE");
+		tt = new TimeTable(TimeTable.generateId()-1, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
 
 		registerList = new ArrayList<Register>();
 		r = new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
@@ -42,9 +42,13 @@ public class C206_CaseStudyTest {
 
 		tuitionList = null;
 		t = null;
+		
+		studentList = null;
+		s = null;
 	}
 
 	@Test
+	// Yentong
 	public void retrieveTimetable() {
 		// Test if list is not null but empty -boundary
 		assertNotNull("Test if there is valid Timetable arraylist to retrieve", timetableList);
@@ -67,6 +71,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	// Yentong
 	public void addTimeTable() {
 		// TimeTable list is not null, so that can add a new item - boundary
 		assertNotNull("Test if there is valid Timetable arraylist to add to", timetableList);
@@ -79,6 +84,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	// Yentong
 	public void doDelete() {
 		// Boundary
 		assertNotNull("Test if there is valid TimeTable arraylist to add to", timetableList);
@@ -99,6 +105,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	// Bryan
 	public void retrieveReg() {
 		// Test if list is not null but empty -boundary
 		assertNotNull("Test if there is valid Registration arraylist to retrieve", registerList);
@@ -122,6 +129,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	//Bryan
 	public void addReg() {
 		// Registration list is not null, so that can add a new item - boundary
 		assertNotNull("Test if there is valid Registration arraylist to add to", registerList);
@@ -134,6 +142,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	//Bryan
 	public void doDeleteReg() {
 		// Boundary
 		assertNotNull("Test if there is valid Register arraylist to add to", registerList);
@@ -155,7 +164,7 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void retrieveTuition() {
-		// Danish - Take the format from retrieveReg()
+		// Danish
 		assertNotNull("Test if there is valid Tuition arraylist to retrieve", tuitionList);
 
 		// Test if the list retrieved is empty - boundary
@@ -170,7 +179,7 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveTuition(tuitionList);
-		testOutput = String.format("%-25d %-15s %-15s %-16s %-22s %-10s", Tuition.generateCode() - 2, t.title(),
+		testOutput = String.format("%-15d %-15s %-15s %-15s %-15s %-10s", Tuition.generateCode() - 2, t.title(),
 				t.subject(), t.desc(), t.duration(), t.prerequisite());
 
 		assertEquals("Test that viewTuition", testOutput, all);
@@ -178,7 +187,7 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void addTuition() {
-		// Danish - Take the format from addReg()
+		// Danish
 		assertNotNull("Test if there is valid Tuition arraylist to add to", tuitionList);
 
 		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
@@ -190,7 +199,7 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void doDeleteTuition() {
-		// Danish - Take the format from doDeleteReg()
+		// Danish
 		assertNotNull("Test if there is valid Tuition arraylist to add to", tuitionList);
 		C206_CaseStudy.addTuition(tuitionList, t);
 
@@ -209,6 +218,7 @@ public class C206_CaseStudyTest {
 	}
 
 	// KengSiong
+	@Test
 	public void retrieveStud() {
 		// Test if list is not null but empty -boundary
 		assertNotNull("Test if there is valid Student arraylist to retrieve", studentList);
@@ -225,7 +235,7 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveStudent(studentList);
-		testOutput = String.format("\"%-5s %-5s %-25s %-10s %-10s %-10s %-20\"", "keng Siong", "M", 98765432,
+		testOutput = String.format("%-15s %-10s %-15s %-20s %-15s %-15s %-10s", "keng Siong", "M", 98765432,
 				"20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021);
 
 		assertEquals("Test that viewStudent", testOutput, all);
