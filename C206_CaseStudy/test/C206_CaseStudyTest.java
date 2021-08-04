@@ -25,6 +25,8 @@ public class C206_CaseStudyTest {
 		registerList = new ArrayList<Register>();
 		r = new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
 				"03/08/2021");
+		studentList = new ArrayList<Student>();
+		s = new Student("keng Siong", "M", 98765432, "20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021);
 
 		tuitionList = new ArrayList<Tuition>();
 		t = new Tuition(Tuition.generateCode()-1, "001", "Biology 2", "biology", 2, "Biology level 1");
