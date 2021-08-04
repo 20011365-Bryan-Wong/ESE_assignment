@@ -57,6 +57,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == VIEW_STUDENTS) {
 					// Keng Siong
+					C206_CaseStudy.viewStudent(studentList);
 
 				}
 			} else if (option == ADD) {
@@ -82,6 +83,9 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == ADD_STUDENTS) {
 					// Keng Siong
+					Student addStudent = inputStudent();
+					C206_CaseStudy.addStudent(studentList, addStudent);
+
 
 				}
 			} else if (option == DELETE) {
@@ -104,6 +108,7 @@ public class C206_CaseStudy {
 
 				} else if (tuitionType == DELETE_STUDENTS) {
 					// Keng Siong
+					C206_CaseStudy.deleteStudent(studentList);
 
 				}
 			} else if (option == OPTION_QUIT) {
@@ -189,6 +194,22 @@ public class C206_CaseStudy {
 		output += retrieveTuition(tuitionList);
 		System.out.println(output);
 	}
+	//KengSiong
+	public static String retrieveStudent(ArrayList<Student> studentList) {
+		String output = "";
+		for (int i = 0; i < studentList.size(); i++) {
+			output += String.format("%s\n", studentList.get(i).toString());
+		}
+		return output;
+	}
+	//KengSiong
+	public static void viewStudent(ArrayList<Student> studentList) {
+		C206_CaseStudy.setHeader("STUDENT LIST");
+		String output = String.format("%-5s %-10s %-13s %-13s %-10s %-10S %-10S\n", "NAME", "GENDER", "MBILE NUMBER",
+				"EMAIL", "DOB", "COR", "YEAR JOINED");
+		output += retrieveStudent(studentList);
+		System.out.println(output);
+	}
 
 	// ================================= Option 2 Add (CRUD -
 	// Create)=================================
@@ -241,6 +262,30 @@ public class C206_CaseStudy {
 	public static void addTuition(ArrayList<Tuition> tuitionList, Tuition tn) {
 		tuitionList.add(tn);
 		System.out.println("Tuition added");
+	}
+	//KengSiong
+	public static Student inputStudent() {
+		String name = Helper.readString("Enter Student Name: ");
+		String gender = Helper.readString("Enter Gender: ");
+		int mobile = Helper.readInt("Enter Mobile: ");
+		String email = Helper.readString("Enter email: ");
+		String DoB = Helper.readString("Enter Date of Birth: ");
+		String CoR = Helper.readString("Enter country of residence: ");
+		int YearJoined = Helper.readInt("Enter year Joined: ");
+
+		Student S = new Student(name, gender, mobile, email, DoB, CoR, YearJoined);
+		return S;
+	}
+		public static void addStudent(ArrayList<Student> studentList, Student S) {
+
+			studentList.add(S);
+			System.out.println("Student Added!");
+		}
+
+		
+	public static void addRegister(ArrayList<Register> registerList, Register r) {
+		registerList.add(r);
+		System.out.println( "Registered!");
 	}
 
 	// ================================= Option 3 Delete (CRUD -
@@ -315,5 +360,33 @@ public class C206_CaseStudy {
 			}
 		}
 		return isFound;
+	}
+	//KengSiong
+	public static Boolean doFindStud(ArrayList<Student> studentList, String j) {
+		boolean isFound = false;
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentList.get(i).getName() == j) {
+				studentList.remove(i);
+				isFound = true;
+			}
+		}
+		return isFound;
+	}
+
+
+	//KengSiong
+	public static void deleteStudent(ArrayList<Student> studentList) {
+		String name = Helper.readString("Enter name to delete: ");
+
+		for (int i = 0; i <= studentList.size(); i++) {
+			if (studentList.get(i).getName() == name) {
+
+				studentList.remove(i);
+				System.out.println("");
+			} else {
+				System.out.println("Name not found.");
+			}
+		}
+
 	}
 }
