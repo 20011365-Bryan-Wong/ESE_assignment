@@ -10,6 +10,9 @@ public class C206_CaseStudyTest {
 
 	private Register r;
 	private ArrayList<Register> registerList;
+	
+	private Student s;
+	private ArrayList<Student> studentList;
 
 	private Tuition t;
 	private ArrayList<Tuition> tuitionList;
