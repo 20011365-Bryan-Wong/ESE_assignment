@@ -284,11 +284,6 @@ public class C206_CaseStudy {
 			System.out.println("Student Added!");
 		}
 
-		
-	public static void addRegister(ArrayList<Register> registerList, Register r) {
-		registerList.add(r);
-		System.out.println( "Registered!");
-	}
 
 	// ================================= Option 3 Delete (CRUD -
 	// Delete)=================================
