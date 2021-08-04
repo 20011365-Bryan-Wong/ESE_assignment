@@ -153,7 +153,7 @@ public class C206_CaseStudy {
 	public static String retrieveRegister(ArrayList<Register> registerList) {
 		String output = "";
 		for (int i = 0; i < registerList.size(); i++) {
-			output += String.format("%-5s \n", registerList.get(i).toString());
+			output += String.format("%-3s", registerList.get(i).toString());
 		}
 		return output;
 	}
@@ -229,6 +229,7 @@ public class C206_CaseStudy {
 		for (int i = 0; i < registerList.size(); i++) {
 			if (registerList.get(i).getRegNum() == reg) {
 				registerList.remove(i);
+				isFound = true;
 			}
 		}
 		return isFound;

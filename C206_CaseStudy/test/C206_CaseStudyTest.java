@@ -47,7 +47,7 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveTimetable(timetableList);
-		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s\n", 1, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
+		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s\n", 2, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
 
 		assertEquals("Test that viewTimeTable", testOutput, all);
 	}
@@ -64,6 +64,7 @@ public class C206_CaseStudyTest {
 		assertSame("Test that a TimeTable is added", tt, timetableList.get(0));
 	}
 
+	@Test
 	public void doDelete() {
 		// Boundary
 		assertNotNull("Test if there is valid TimeTable arraylist to add to", timetableList);
@@ -75,7 +76,7 @@ public class C206_CaseStudyTest {
 
 		// Normal
 		C206_CaseStudy.addTimeTable(timetableList, tt);
-		isFound = C206_CaseStudy.doFind(timetableList, TimeTable.generateId());
+		isFound = C206_CaseStudy.doFind(timetableList, tt.getId());
 		assertTrue("Test if TimeTable is found- true", isFound);
 
 		// Error
@@ -83,6 +84,7 @@ public class C206_CaseStudyTest {
 		assertFalse("Test if non-existing Timetable is found - false?", isFound);
 	}
 
+	@Test
 	public void retrieveReg() {
 		// Test if list is not null but empty -boundary
 		assertNotNull("Test if there is valid Registration arraylist to retrieve", registerList);
@@ -99,40 +101,42 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveRegister(registerList);
-		testOutput = String.format("%-5d %-5s %-25s %-10s %-10s\n", Register.generateReg(), Register.generateId(),
+		testOutput = String.format("%-5d %-5s %-25s %-10s %-10s", r.getRegNum(),r.getId(),
 				"20011365@myrp.edu.sg", "Pending", "03/08/2021");
 
 		assertEquals("Test that viewTimeTable", testOutput, all);
 	}
 
+	@Test
 	public void addReg() {
 		// Registration list is not null, so that can add a new item - boundary
 		assertNotNull("Test if there is valid Registration arraylist to add to", registerList);
 
 		// Given an empty list, after adding 1 item, the size of the list is 1 - normal
 		// The item just added is as same as the first item of the list
-		C206_CaseStudy.addTimeTable(timetableList, tt);
+		C206_CaseStudy.addRegister(registerList, r);
 		assertEquals("Test that registerList arraylist size is 1", 1, registerList.size());
-		assertSame("Test that a Register is added", tt, registerList.get(0));
+		assertSame("Test that a Register is added", r, registerList.get(0));
 	}
 
+	@Test
 	public void doDeleteReg() {
 		// Boundary
-		assertNotNull("Test if there is valid Registration arraylist to add to", registerList);
-		C206_CaseStudy.addTimeTable(timetableList, tt);
+		assertNotNull("Test if there is valid Register arraylist to add to", registerList);
+		C206_CaseStudy.addRegister(registerList, r);
 
 		// Error
 		Boolean isFound = C206_CaseStudy.doFindReg(registerList, Register.generateReg());
-		assertFalse("Test if available Registration is found -false?", isFound);
+		assertFalse("Test if available Register is found -false?", isFound);
 
 		// Normal
 		C206_CaseStudy.addRegister(registerList, r);
-		isFound = C206_CaseStudy.doFindReg(registerList, Register.generateReg());
-		assertTrue("Test if Registration is found- true", isFound);
+		isFound = C206_CaseStudy.doFindReg(registerList, r.getId());
+		assertTrue("Test if Register is found- true", isFound);
 
 		// Error
 		isFound = C206_CaseStudy.doFindReg(registerList, Register.generateReg());
-		assertFalse("Test if non-existing Registration is found - false?", isFound);
+		assertFalse("Test if non-existing Register is found - false?", isFound);
 	}
 
 //	@Test
