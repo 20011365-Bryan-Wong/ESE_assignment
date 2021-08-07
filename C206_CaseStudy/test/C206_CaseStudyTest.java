@@ -20,7 +20,7 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		timetableList = new ArrayList<TimeTable>();
-		tt = new TimeTable(TimeTable.generateId() - 1, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
+		tt = new TimeTable(TimeTable.generateId() - 1, 420.50, "20/04/2021", "20/09/2021", "ONLINE");
 
 		registerList = new ArrayList<Register>();
 		r = new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
@@ -65,7 +65,7 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveTimetable(timetableList);
-		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s %-10s\n", 2, 4.2, "20/04/2021", "20/09/2021",
+		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s %-10s\n", 2, 420.50, "20/04/2021", "20/09/2021",
 				"ONLINE", "null");
 
 		assertEquals("Test that viewTimeTable", testOutput, all);
@@ -113,16 +113,16 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.addTimeTable(timetableList, tt);
 
 		// Error
-		Boolean isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		Boolean isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStatus());
 		assertFalse("Test if available TimeTable is found -false?", isFound);
 
 		// Normal
 		C206_CaseStudy.addTimeTable(timetableList, tt);
-		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate());
 		assertTrue("Test if TimeTable is found- true", isFound);
 
 		// Error
-		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStatus());
 		assertFalse("Test if non-existing Timetable is found - false?", isFound);
 
 	}

@@ -28,7 +28,7 @@ public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		ArrayList<TimeTable> timetableList = new ArrayList<TimeTable>();
-		timetableList.add(new TimeTable(TimeTable.generateId(), 4.2, "20/04/2021", "20/09/2021", "ONLINE"));
+		timetableList.add(new TimeTable(TimeTable.generateId(), 420.50, "20/04/2021", "20/09/2021", "ONLINE"));
 
 		ArrayList<Register> registerList = new ArrayList<Register>();
 		registerList.add(new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
@@ -435,14 +435,12 @@ public class C206_CaseStudy {
 	// =================================
 
 	// Yentong
-	public static boolean doFindDate(ArrayList<TimeTable> timetableList, String startDate, String endDate) {
+	public static boolean doFindDate(ArrayList<TimeTable> timetableList, String searchDate) {
 		boolean isFound = false;
 		String status = "Class Cancelled";
 		for (int i = 0; i < timetableList.size(); i++) {
-			if (!timetableList.get(i).getStartDate().equalsIgnoreCase(startDate)
-					|| !timetableList.get(i).getEndDate().equalsIgnoreCase(endDate)) {
-				timetableList.get(i).setStartDate(startDate);
-				timetableList.get(i).setEndDate(endDate);
+			if (timetableList.get(i).getStartDate().equalsIgnoreCase(searchDate)
+					|| timetableList.get(i).getEndDate().equalsIgnoreCase(searchDate)) {
 				timetableList.get(i).setStatus(status);
 				isFound = true;
 			}
@@ -453,16 +451,17 @@ public class C206_CaseStudy {
 	// Yentong
 	public static void doUpdate(ArrayList<TimeTable> timetableList) {
 		C206_CaseStudy.viewTimeTable(timetableList);
-		String startDate = Helper.readString("Enter Updated Start Date > ");
-		String endDate = Helper.readString("Enter Updated End Date > ");
-
-		Boolean isFound = doFindDate(timetableList, startDate, endDate);
+		String searchDate = Helper.readString("Enter Start/End Date > ");
+		Boolean isFound = doFindDate(timetableList, searchDate);
 
 		if (isFound == false) {
+			Helper.line(100, "-");
 			System.out.println("Invalid Start or End Date");
 		} else {
 			Helper.line(100, "-");
-			System.out.println(startDate + " & " + endDate + " has been updated!");
+			for (int i = 0; i < timetableList.size(); i++) {
+				System.out.println("Status: " + timetableList.get(i).getStatus().toLowerCase() + " successfully updated!");
+			}
 		}
 	}
 }
