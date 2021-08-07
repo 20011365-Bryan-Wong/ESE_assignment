@@ -24,7 +24,7 @@ public class C206_CaseStudyTest {
 
 		registerList = new ArrayList<Register>();
 		r = new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
-				"03/08/2021");
+				"03/08/2021","No");
 		studentList = new ArrayList<Student>();
 		s = new Student("keng Siong", "M", 98765432, "20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021);
 
@@ -145,8 +145,8 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveRegister(registerList);
-		testOutput = String.format("%-5d %-5s %-25s %-10s %-10s", r.getRegNum(), r.getId(), "20011365@myrp.edu.sg",
-				"Pending", "03/08/2021");
+		testOutput = String.format("%-5d %-5s %-25s %-10s %-15s %-10s\n", r.getRegNum(), r.getId(), "20011365@myrp.edu.sg",
+				"Pending", "03/08/2021","No");
 
 		assertEquals("Test that viewTimeTable", testOutput, all);
 	}

@@ -32,7 +32,7 @@ public class C206_CaseStudy {
 
 		ArrayList<Register> registerList = new ArrayList<Register>();
 		registerList.add(new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
-				"03/08/2021"));
+				"03/08/2021", "No"));
 
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		studentList
@@ -199,7 +199,7 @@ public class C206_CaseStudy {
 	public static String retrieveRegister(ArrayList<Register> registerList) {
 		String output = "";
 		for (int i = 0; i < registerList.size(); i++) {
-			output += String.format("%-3s", registerList.get(i).toString());
+			output += String.format("%s\n", registerList.get(i).toString());
 		}
 		return output;
 	}
@@ -207,7 +207,8 @@ public class C206_CaseStudy {
 	// Bryan
 	public static void viewReg(ArrayList<Register> registerList) {
 		C206_CaseStudy.setHeader("REGISTRATION LIST");
-		String output = String.format("%-5s %-5s %-25s %-10s %-10s \n", "NO.", "ID", "EMAIL", "STATUS", "DATE");
+		String output = String.format("%-5s %-5s %-25s %-10s %-15s %-10s \n", "NO.", "ID", "EMAIL", "STATUS", "DATE",
+				"LATE REGISTRATION");
 		output += retrieveRegister(registerList);
 		System.out.println(output);
 	}
@@ -274,16 +275,28 @@ public class C206_CaseStudy {
 		String email = Helper.readString("Enter email > ");
 		String status = "";
 		String date = Helper.readString("Enter Register Date > ");
+		String deadline = "";
+
+		if (date.equalsIgnoreCase("07/08/2021")) {
+			deadline += "Yes";
+		} else {
+			deadline += "No";
+		}
 
 		Helper.line(80, "-");
-		Register r = new Register(Register.generateReg(), Register.generateId(), email, status, date);
+		Register r = new Register(Register.generateReg(), Register.generateId(), email, status, date, deadline);
 		return r;
 	}
 
 	// Bryan
 	public static void addRegister(ArrayList<Register> registerList, Register r) {
 		registerList.add(r);
-		System.out.println("Registered!");
+		
+		if (!r.getDeadline().equalsIgnoreCase("yes")) {
+			System.out.println("Registered!");
+		} else {
+			System.out.println("Late Registration!");
+		}
 	}
 
 //Danish
@@ -460,7 +473,8 @@ public class C206_CaseStudy {
 		} else {
 			Helper.line(100, "-");
 			for (int i = 0; i < timetableList.size(); i++) {
-				System.out.println("Status: " + timetableList.get(i).getStatus().toLowerCase() + " successfully updated!");
+				System.out.println(
+						"Status: " + timetableList.get(i).getStatus().toLowerCase() + " successfully updated!");
 			}
 		}
 	}
