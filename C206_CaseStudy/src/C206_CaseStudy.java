@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
-	private static final int OPTION_QUIT = 4;
+	private static final int OPTION_QUIT = 5;
 	private static final int VIEW = 1;
 	private static final int VIEW_REG = 1;
 	private static final int VIEW_TUITION = 2;
@@ -20,6 +20,12 @@ public class C206_CaseStudy {
 	private static final int DELETE_TIMETABLE = 3;
 	private static final int DELETE_STUDENTS = 4;
 
+	private static final int UPDATE = 4;
+	private static final int UPDATE_REG = 1;
+	private static final int UPDATE_TUITION = 2;
+	private static final int UPDATE_TUITIONTIMETABLE = 3;
+	private static final int UPDATE_STUDENTS = 4;
+
 	public static void main(String[] args) {
 		ArrayList<TimeTable> timetableList = new ArrayList<TimeTable>();
 		timetableList.add(new TimeTable(TimeTable.generateId(), 4.2, "20/04/2021", "20/09/2021", "ONLINE"));
@@ -27,12 +33,13 @@ public class C206_CaseStudy {
 		ArrayList<Register> registerList = new ArrayList<Register>();
 		registerList.add(new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
 				"03/08/2021"));
-		
+
 		ArrayList<Student> studentList = new ArrayList<Student>();
-		studentList.add(new Student("keng Siong", "M", 98765432, "20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021));
+		studentList
+				.add(new Student("keng Siong", "M", 98765432, "20011945@rp.edu.sg", "14/12/2002", "Singapore", 2021));
 
 		ArrayList<Tuition> tuitionList = new ArrayList<Tuition>();
-		tuitionList.add(new Tuition(Tuition.generateCode()-1, "001", "Biology 2", "biology", 2, "Biology level 1"));
+		tuitionList.add(new Tuition(Tuition.generateCode() - 1, "001", "Biology 2", "biology", 2, "Biology level 1"));
 
 		int option = 0;
 
@@ -89,7 +96,6 @@ public class C206_CaseStudy {
 					Student addStudent = inputStudent();
 					C206_CaseStudy.addStudent(studentList, addStudent);
 
-
 				}
 			} else if (option == DELETE) {
 				C206_CaseStudy.setHeader("DELETE");
@@ -114,8 +120,29 @@ public class C206_CaseStudy {
 					C206_CaseStudy.deleteStudent(studentList);
 
 				}
+			} else if (option == UPDATE) {
+				C206_CaseStudy.setHeader("UPDATE");
+				C206_CaseStudy.tuitionTypeMenu();
+
+				int tuitionType = Helper.readInt("Enter option to select tuition type > ");
+
+				if (tuitionType == UPDATE_REG) {
+					// Bryan
+
+				} else if (tuitionType == UPDATE_TUITION) {
+					// Danish
+
+				} else if (tuitionType == UPDATE_TUITIONTIMETABLE) {
+					// Yentong
+					C206_CaseStudy.doUpdate(timetableList);
+
+				} else if (tuitionType == UPDATE_STUDENTS) {
+					// Keng Siong
+
+				}
 			} else if (option == OPTION_QUIT) {
 				System.out.println("Thank You For Using This App!");
+
 			} else {
 				System.out.println("Invalid Option!");
 			}
@@ -128,7 +155,7 @@ public class C206_CaseStudy {
 		System.out.println("1. Display Tuition");
 		System.out.println("2. Add Tuition");
 		System.out.println("3. Delete Tuition");
-		System.out.println("4. Quit");
+		System.out.println("4. Update Tuition");
 		Helper.line(110, "-");
 
 	}
@@ -149,7 +176,7 @@ public class C206_CaseStudy {
 
 	// ================================= Option 1 View (CRUD -
 	// Read)=================================
-	
+
 	// Yentong
 	public static String retrieveTimetable(ArrayList<TimeTable> timetableList) {
 		String output = "";
@@ -162,8 +189,8 @@ public class C206_CaseStudy {
 	// Yentong
 	public static void viewTimeTable(ArrayList<TimeTable> timetableList) {
 		C206_CaseStudy.setHeader("TIMETABLE LIST");
-		String output = String.format("%-5s %-10s %-13s %-13s %-10s\n", "ID", "PRICE", "START DATE", "END DATE",
-				"MODE");
+		String output = String.format("%-5s %-10s %-13s %-13s %-10s %-10s\n", "ID", "PRICE", "START DATE", "END DATE",
+				"MODE", "STATUS");
 		output += retrieveTimetable(timetableList);
 		System.out.println(output);
 	}
@@ -197,12 +224,13 @@ public class C206_CaseStudy {
 	// Danish
 	public static void viewTuition(ArrayList<Tuition> tuitionList) {
 		C206_CaseStudy.setHeader("TUITION LIST");
-		String output = String.format("%-15s %-15s %-15s %-15s %-15s %-10s\n", "TUITION CODE", "TITLE", "SUBJECT", "DESC",
-				"DURATION", "PRE REQUISITE");
+		String output = String.format("%-15s %-15s %-15s %-15s %-15s %-10s\n", "TUITION CODE", "TITLE", "SUBJECT",
+				"DESC", "DURATION", "PRE REQUISITE");
 		output += retrieveTuition(tuitionList);
 		System.out.println(output);
 	}
-	//KengSiong
+
+	// KengSiong
 	public static String retrieveStudent(ArrayList<Student> studentList) {
 		String output = "";
 		for (int i = 0; i < studentList.size(); i++) {
@@ -210,7 +238,8 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-	//KengSiong
+
+	// KengSiong
 	public static void viewStudent(ArrayList<Student> studentList) {
 		C206_CaseStudy.setHeader("STUDENT LIST");
 		String output = String.format("%-15s %-10s %-15s %-20s %-15s %-15s %-10s\n", "NAME", "GENDER", "MOBILE NUMBER",
@@ -221,7 +250,7 @@ public class C206_CaseStudy {
 
 	// ================================= Option 2 Add (CRUD -
 	// Create)=================================
-	
+
 	// Yentong
 	public static TimeTable inputTimeTable() {
 		double price = Helper.readDouble("Enter price > $");
@@ -276,7 +305,8 @@ public class C206_CaseStudy {
 		tuitionList.add(tn);
 		System.out.println("Tuition added");
 	}
-	//KengSiong
+
+	// KengSiong
 	public static Student inputStudent() {
 		String name = Helper.readString("Enter Student Name: ");
 		String gender = Helper.readString("Enter Gender: ");
@@ -289,12 +319,12 @@ public class C206_CaseStudy {
 		Student S = new Student(name, gender, mobile, email, DoB, CoR, YearJoined);
 		return S;
 	}
-		public static void addStudent(ArrayList<Student> studentList, Student S) {
 
-			studentList.add(S);
-			System.out.println("Student Added!");
-		}
+	public static void addStudent(ArrayList<Student> studentList, Student S) {
 
+		studentList.add(S);
+		System.out.println("Student Added!");
+	}
 
 	// ================================= Option 3 Delete (CRUD -
 	// Delete)=================================
@@ -373,7 +403,8 @@ public class C206_CaseStudy {
 		}
 		return isFound;
 	}
-	//KengSiong
+
+	// KengSiong
 	public static Boolean doFindStud(ArrayList<Student> studentList, String j) {
 		boolean isFound = false;
 		for (int i = 0; i < studentList.size(); i++) {
@@ -385,8 +416,7 @@ public class C206_CaseStudy {
 		return isFound;
 	}
 
-
-	//KengSiong
+	// KengSiong
 	public static void deleteStudent(ArrayList<Student> studentList) {
 		String name = Helper.readString("Enter name to delete: ");
 
@@ -400,5 +430,39 @@ public class C206_CaseStudy {
 			}
 		}
 
+	}
+	// ================================= Option 4 Update (CURD- Update)
+	// =================================
+
+	// Yentong
+	public static boolean doFindDate(ArrayList<TimeTable> timetableList, String startDate, String endDate) {
+		boolean isFound = false;
+		String status = "Class Cancelled";
+		for (int i = 0; i < timetableList.size(); i++) {
+			if (!timetableList.get(i).getStartDate().equalsIgnoreCase(startDate)
+					|| !timetableList.get(i).getEndDate().equalsIgnoreCase(endDate)) {
+				timetableList.get(i).setStartDate(startDate);
+				timetableList.get(i).setEndDate(endDate);
+				timetableList.get(i).setStatus(status);
+				isFound = true;
+			}
+		}
+		return isFound;
+	}
+
+	// Yentong
+	public static void doUpdate(ArrayList<TimeTable> timetableList) {
+		C206_CaseStudy.viewTimeTable(timetableList);
+		String startDate = Helper.readString("Enter Updated Start Date > ");
+		String endDate = Helper.readString("Enter Updated End Date > ");
+
+		Boolean isFound = doFindDate(timetableList, startDate, endDate);
+
+		if (isFound == false) {
+			System.out.println("Invalid Start or End Date");
+		} else {
+			Helper.line(100, "-");
+			System.out.println(startDate + " & " + endDate + " has been updated!");
+		}
 	}
 }

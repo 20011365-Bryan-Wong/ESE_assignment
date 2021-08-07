@@ -20,7 +20,7 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		timetableList = new ArrayList<TimeTable>();
-		tt = new TimeTable(TimeTable.generateId()-1, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
+		tt = new TimeTable(TimeTable.generateId() - 1, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
 
 		registerList = new ArrayList<Register>();
 		r = new Register(Register.generateReg(), Register.generateId(), "20011365@myrp.edu.sg", "Pending",
@@ -42,7 +42,7 @@ public class C206_CaseStudyTest {
 
 		tuitionList = null;
 		t = null;
-		
+
 		studentList = null;
 		s = null;
 	}
@@ -65,7 +65,8 @@ public class C206_CaseStudyTest {
 
 		// Test if the expected output string same as the list of timetable retrieved
 		all = C206_CaseStudy.retrieveTimetable(timetableList);
-		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s\n", 2, 4.2, "20/04/2021", "20/09/2021", "ONLINE");
+		testOutput = String.format("%-5s $%-9.2f %-13s %-13s %-10s %-10s\n", 2, 4.2, "20/04/2021", "20/09/2021",
+				"ONLINE", "null");
 
 		assertEquals("Test that viewTimeTable", testOutput, all);
 	}
@@ -105,6 +106,28 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
+	// Yentong
+	public void doUpdate() {
+		// Boundary
+		assertNotNull("Test if there is valid TimeTable arraylist to add to", timetableList);
+		C206_CaseStudy.addTimeTable(timetableList, tt);
+
+		// Error
+		Boolean isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		assertFalse("Test if available TimeTable is found -false?", isFound);
+
+		// Normal
+		C206_CaseStudy.addTimeTable(timetableList, tt);
+		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		assertTrue("Test if TimeTable is found- true", isFound);
+
+		// Error
+		isFound = C206_CaseStudy.doFindDate(timetableList, tt.getStartDate(), tt.getEndDate());
+		assertFalse("Test if non-existing Timetable is found - false?", isFound);
+
+	}
+
+	@Test
 	// Bryan
 	public void retrieveReg() {
 		// Test if list is not null but empty -boundary
@@ -129,7 +152,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	//Bryan
+	// Bryan
 	public void addReg() {
 		// Registration list is not null, so that can add a new item - boundary
 		assertNotNull("Test if there is valid Registration arraylist to add to", registerList);
@@ -142,7 +165,7 @@ public class C206_CaseStudyTest {
 	}
 
 	@Test
-	//Bryan
+	// Bryan
 	public void doDeleteReg() {
 		// Boundary
 		assertNotNull("Test if there is valid Register arraylist to add to", registerList);

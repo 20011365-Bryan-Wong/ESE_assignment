@@ -5,6 +5,7 @@ public class TimeTable {
 	private String startDate;
 	private String endDate;
 	private String mode;
+	private String status;
 	private static int latestId = 0;
 
 	public TimeTable(int id, double price, String startDate, String endDate, String mode) {
@@ -16,8 +17,8 @@ public class TimeTable {
 	}
 
 	public String toString() {
-		return String.format("%-5s $%-9.2f %-13s %-13s %-10s", getId(), getPrice(), getStartDate(), getEndDate(),
-				getMode());
+		return String.format("%-5s $%-9.2f %-13s %-13s %-10s %-10s", getId(), getPrice(), getStartDate(), getEndDate(),
+				getMode(),getStatus());
 	}
 
 	public int getId() {
@@ -36,11 +37,27 @@ public class TimeTable {
 		return endDate;
 	}
 
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
 	public String getMode() {
 		return mode;
 	}
 
 	public static int generateId() {
-	   return ++latestId;
+		return ++latestId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
