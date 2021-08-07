@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class C206_CaseStudyTest {
+public class C206_CaseStudyTest{
 	private TimeTable tt;
 	private ArrayList<TimeTable> timetableList;
 
