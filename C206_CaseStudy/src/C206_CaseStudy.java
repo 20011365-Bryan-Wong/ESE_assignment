@@ -277,10 +277,10 @@ public class C206_CaseStudy {
 		String date = Helper.readString("Enter Register Date > ");
 		String deadline = "";
 
-		if (date.equalsIgnoreCase("07/08/2021")) {
-			deadline += "Yes";
-		} else {
+		if (date.equalsIgnoreCase("07/08/2021") || date.equalsIgnoreCase("06/08/2021")) {
 			deadline += "No";
+		} else {
+			deadline += "Yes";
 		}
 
 		Helper.line(80, "-");
@@ -291,7 +291,7 @@ public class C206_CaseStudy {
 	// Bryan
 	public static void addRegister(ArrayList<Register> registerList, Register r) {
 		registerList.add(r);
-		
+
 		if (!r.getDeadline().equalsIgnoreCase("yes")) {
 			System.out.println("Registered!");
 		} else {
